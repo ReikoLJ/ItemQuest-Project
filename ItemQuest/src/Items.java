@@ -45,7 +45,7 @@ public class Items {
 	public String DropItem() {
 		
 		Random rand = new Random();
-		
+	
 		String randomItem = itemList.get(rand.nextInt(50));
 		itemsDropped.add(randomItem);
 		

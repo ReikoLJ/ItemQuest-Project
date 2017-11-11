@@ -3,8 +3,12 @@ public class Player {
 
 	public String Name;
 	private String mInventory[] = new String[3];
+	private int movementCounter = 0;
+	public int currentX = 0;
+	public int currentY = 0;
+	public String moveResponse;
+	
 	Items mItemManager = Items.GetInstance();
-		
 	
 	public Player(String name) {
 		
@@ -21,5 +25,66 @@ public class Player {
 		for(int i = 0; i < 3; i++){
 			mInventory[i] = mItemManager.DropItem();
 		}
+	}
+	
+	public void ItemSwap(int invIndex, String newItem) {
+		mInventory[invIndex-1] = newItem;
+	}
+	
+
+	public String movement(String direction) {
+		
+		Direction moveDirection = Direction.valueOf(direction.toUpperCase());
+		
+		switch(moveDirection) {
+			
+		case NORTH:
+		case 	 N:
+			currentY++;
+			break;
+		case  EAST:
+		case     E:
+			currentX++;
+			break;		
+		case SOUTH:
+		case 	 S:
+			currentY--;
+			break;
+		case  WEST:
+		case 	 W:
+			currentX--;
+			break;	
+		}
+		
+		movementCounter++;
+		
+		//when player has moved 5 times, an item will drop
+		if(movementCounter == 5) {
+			moveResponse = "ITEM";
+			movementCounter = 0;
+		}
+		else {
+			moveResponse =  "NOTHING"; 			
+		}
+
+		
+		return moveResponse;
+	}
+	
+	
+	public String playerLocation() {
+		return currentX + ", " + currentY;
+	}
+	
+	
+	public enum Direction {
+		NORTH,
+		EAST,
+		SOUTH,
+		WEST,
+		N,
+		E,
+		S,
+		W
 	}
 }

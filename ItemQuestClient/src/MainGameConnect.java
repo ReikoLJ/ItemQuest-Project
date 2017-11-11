@@ -4,19 +4,15 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 public class MainGameConnect {
 
 	public static void main(String[] args) throws IOException {
 	
-		Scanner scan = new Scanner(System.in);
 	       
-	       System.out.println("Enter a hostname: 10.39.24.133");
-	        String hostName = scan.nextLine();
-	        System.out.println("Enter a port: 12345");
-	        int portNumber = scan.nextInt();
-	 
+	       	String hostName = "192.168.0.10";
+	        int portNumber = 50000;
+
 	        try (
 	            Socket kkSocket = new Socket(hostName, portNumber);
 	            PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
@@ -27,17 +23,44 @@ public class MainGameConnect {
 	                new BufferedReader(new InputStreamReader(System.in));
 	            String fromServer;
 	            String fromUser;
-	 
+	            
+	            //Game setup
+	            fromServer = in.readLine();
+	            System.out.println(fromServer);
+	            
+	            fromUser = stdIn.readLine();
+	            out.println(fromUser);
+	            
+	            //Getting initial inventory statement and
+	            //First request for movement input
+	            for(int i = 0; i <= 4; i++) {
+	            	fromServer = in.readLine();
+	            	System.out.println(fromServer);
+	            }
+	            //First movement send
+	            fromUser = stdIn.readLine();
+	            out.println(fromUser);
+
+               //Main game loop
 	            while ((fromServer = in.readLine()) != null) {
-	                System.out.println("Server: " + fromServer);
-	                if (fromServer.equals("Bye."))
-	                    break;
-	                 
-	                fromUser = stdIn.readLine();
-	                if (fromUser != null) {
-	                    System.out.println("Client: " + fromUser);
-	                    out.println(fromUser);
-	                }
+
+	            	if (fromServer.equals("ITEM")) {
+	    	            for(int i = 0; i <= 5; i++) {
+	    	            	fromServer = in.readLine();
+	    	            	System.out.println(fromServer);
+	    	            }
+	    	            //Send item replacement response
+	    	            fromUser = stdIn.readLine();
+	    	            out.println(fromUser);
+	            	}
+	            	else {
+		            	System.out.println(fromServer);
+		                fromUser = stdIn.readLine();
+		                if (fromUser != null) {
+		                    out.println(fromUser);
+		                }
+	            	}
+
 	            }
 	        } catch (UnknownHostException e) {
 	            System.err.println("Don't know about host " + hostName);
