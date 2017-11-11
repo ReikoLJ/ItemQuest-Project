@@ -1,0 +1,50 @@
+01, Small Health Potion
+02, Health Potion
+03, Large Health Potion
+04, Small Mana Potion
+05, Mana Potion
+06, Large Mana Potion
+07, Small Stamina Potion
+08, Stamina Potion
+09, Large Stamina Potion
+10, Flagon of Ale
+11, Sweetroll
+12, Chicken Breast (Cooked)
+13, Chicken Breast (Uncooked)
+14, Wheel of Cheese
+15, Apple
+16, Salmon (Uncooked)
+17, Worn Lockpick
+18, Lockpick
+19, Unbreakable Lockpick of Lockpickia
+20, Gold Ring
+21, Silver Ring
+22, Copper Ring
+23, Book of Riddles
+24, Book of Travel Tips
+25, Book of Passwords
+26, Kryptonian Red Cape
+27, 1:12 Scale Model of the Millenium Falcon
+28, The Holy Grail
+29, Rusty Iron Shield
+30, Steel Shield
+31, Immortal Shield of The Rock Lobster
+32, Beginner's Bow
+33, Marksman's Bow
+34, The El Bow
+35, A Super Rare Tragic The Saddening Card
+36, A Shiny Mew Pokemon Card
+37, A Copy of Destiny 2
+38, Rusty Iron Armour
+39, Steel Armour
+40, Uncrackable Diamond Armour
+41, Rusty Iron Helmet
+42, Dope Sword of the Vape Nation
+43, Uncrackable Diamond Helmet
+44, 99 Red Balloons
+45, David Bowie Vinyl Record
+46, A Life-Sized Waifu Bodypillow
+47, Rusty Iron Sword
+48, Steel Sword
+49, Steel Helmet
+50, A First-Class Grade From Chris
