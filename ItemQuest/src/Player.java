@@ -4,6 +4,7 @@ public class Player {
 	public String Name;
 	private String mInventory[] = new String[3];
 	private int movementCounter = 0;
+	private int itemCounter = 0;
 	public int currentX = 0;
 	public int currentY = 0;
 	public String moveResponse;
@@ -62,6 +63,10 @@ public class Player {
 		if(movementCounter == 5) {
 			moveResponse = "ITEM";
 			movementCounter = 0;
+			itemCounter++;
+		}
+		else if (itemCounter == 5) {
+			moveResponse 
 		}
 		else {
 			moveResponse =  "NOTHING"; 			

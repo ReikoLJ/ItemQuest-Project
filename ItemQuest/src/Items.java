@@ -43,11 +43,20 @@ public class Items {
 	
 	//Returns random item from list
 	public String DropItem() {
-		
+		String randomItem = "";
 		Random rand = new Random();
-	
-		String randomItem = itemList.get(rand.nextInt(50));
-		itemsDropped.add(randomItem);
+		Boolean newItem = false;
+		
+		while(!newItem) {
+			
+			randomItem = itemList.get(rand.nextInt(50));
+			//check if generated item is already on the dropped list
+			if(!ItemCheck(randomItem)) {
+				//if not on the list then add to it, otherwise loop again and generate another
+				itemsDropped.add(randomItem);
+				newItem = true;
+			}
+		}
 		
 		return randomItem;
 	}
@@ -63,7 +72,7 @@ public class Items {
 		}
 	}
 	
-	//Get full item desc from number
+	//Get full item description from number
 	public String ItemLookup(int itemNumber) {
 		
 		String fullItem = itemList.get(itemNumber-1);
