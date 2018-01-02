@@ -55,17 +55,39 @@ public class Algorithm {
 			}
 		}	
 		
-		public void orderUsers() {
-			//TODO: Order users by their playerScore.
+		//Bubble sort the players by their playerScore
+		public Player[] orderUsers(Player[] playerList) {			
+			int length = playerList.length;
+			Player temp = null;
+			boolean flag = true;
 			
-			
-			
-			//TODO: Ask players for their inventory in descending order.
+			while(flag) {
+				flag = false;
+				for(int i = 0; i < length; i++) {
+					for(int j = 0; j < (length - i); j++) {
+						if(playerList[j].playerScore < playerList[j+1].playerScore) {
+							temp = playerList[j];
+							playerList[j].playerScore = playerList[j+1].playerScore;
+							playerList[j+1] = temp;
+							flag = true;
+						}
+					}
+				}
+			}
+			return playerList;
 		}
 		
-		public void playerInventoryAssign() {
+		public void playerInventoryAssign(Player player, int[] newInventory) {
 			//TODO: Take all returned answers and assign items.
 			//Once item has been claimed it cannot be claimed again and any subsequent user who attempts to claim it will end up with and empty inventory slot.
 			// Focus on writing about potential improvements - full comparison
+			
+			for(int i = 0; i < 3; i++){
+				String itemString = itemManager.ItemLookup(newInventory[i]);
+				
+				if (!itemManager.ItemCheck(itemString)){
+					player.ItemSwap(i, itemString);
+				}
+			}
 		}
 }
