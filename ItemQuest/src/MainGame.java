@@ -13,6 +13,7 @@ public class MainGame {
 		String moveCheck;
 		String foundItem;
         
+		//test comment
        int portNumber = 50000;
 
        try ( 

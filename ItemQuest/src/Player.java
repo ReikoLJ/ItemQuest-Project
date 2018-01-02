@@ -7,6 +7,7 @@ public class Player {
 	public int currentX = 0;
 	public int currentY = 0;
 	public String moveResponse;
+	public int playerScore = 10;
 	
 	Items mItemManager = Items.GetInstance();
 	
