@@ -56,6 +56,16 @@ public class Algorithm {
 		}	
 		
 		public void orderUsers() {
-			//TODO: Order users by their playerScore
+			//TODO: Order users by their playerScore.
+			
+			
+			
+			//TODO: Ask players for their inventory in descending order.
+		}
+		
+		public void playerInventoryAssign() {
+			//TODO: Take all returned answers and assign items.
+			//Once item has been claimed it cannot be claimed again and any subsequent user who attempts to claim it will end up with and empty inventory slot.
+			// Focus on writing about potential improvements - full comparison
 		}
 }
