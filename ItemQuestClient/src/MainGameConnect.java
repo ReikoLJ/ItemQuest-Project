@@ -10,8 +10,8 @@ public class MainGameConnect {
 	public static void main(String[] args) throws IOException {
 	
 	       	//change to current PC
-	       	//String hostName = "192.168.0.10";
-			String hostName = "10.30.8.162";
+	       	String hostName = "192.168.0.10";
+			//String hostName = "10.30.8.162";
 			int portNumber = 50000;
 
 	        try (

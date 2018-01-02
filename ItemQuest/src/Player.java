@@ -23,13 +23,19 @@ public class Player {
 	}
 	
 	private void StarterInventory(){
+		
+//		for(int i = 0; i < 3; i++){
+//			mInventory[i] = mItemManager.DropItem();
+//		}
 		for(int i = 0; i < 3; i++){
-			mInventory[i] = mItemManager.DropItem();
+			mInventory[i] = null;
 		}
+		
 	}
 	
-	public void ItemSwap(int invIndex, String newItem) {
+	public void ItemSwap(int invIndex, String newItem, String oldItem) {
 		mInventory[invIndex-1] = newItem;
+		mItemManager.itemsDropped.remove(oldItem);
 	}
 	
 
@@ -65,9 +71,10 @@ public class Player {
 			movementCounter = 0;
 			itemCounter++;
 		}
-		else if (itemCounter == 5) {
-			moveResponse 
-		}
+//		else if (itemCounter == 5) {
+//			moveResponse = "CHECK";
+//			
+//		}
 		else {
 			moveResponse =  "NOTHING"; 			
 		}
@@ -76,11 +83,9 @@ public class Player {
 		return moveResponse;
 	}
 	
-	
 	public String playerLocation() {
 		return currentX + ", " + currentY;
 	}
-	
 	
 	public enum Direction {
 		NORTH,

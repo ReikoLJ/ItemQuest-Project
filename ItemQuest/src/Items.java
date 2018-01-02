@@ -9,7 +9,7 @@ public class Items {
 	private static Items instance = null;	
 	
     private List<String> itemList = new ArrayList<String>();
-    private List<String> itemsDropped = new ArrayList<String>();
+    public List<String> itemsDropped = new ArrayList<String>();
     
     private Items() {
 			LoadItems();

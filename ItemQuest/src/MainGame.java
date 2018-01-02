@@ -61,6 +61,8 @@ public class MainGame {
 		   		   outputLine = "You find item " + foundItem;
 		           out.println(outputLine);
 		           
+
+		           
 		   		   outputLine = "Your current inventory is:";
 		           out.println(outputLine);
 		           
@@ -73,13 +75,25 @@ public class MainGame {
 		           inputLine = in.readLine();
 		           
 		           if(inputLine.equals("1") || inputLine.equals("2") || inputLine.equals("3")) {
-		        	   player1.ItemSwap(Integer.parseInt(inputLine), foundItem);
-		        	   System.out.print("New Inventory");
+		        	   
+		        	   int swapSlot = Integer.parseInt(inputLine);
+		        	   
+		        	   player1.ItemSwap(swapSlot, foundItem, playerInventory[swapSlot-1]);
+		        	   //System.out.println("New Inventory");
 		        	   playerInventory = player1.GetInventory();
-				   		for (String item : playerInventory) {
-				   			System.out.println(item);
-				   		}
+//				   		for (String item : playerInventory) {
+//				   			System.out.println(item);
+//				   		}
 		           }
+		           else {
+		        	   //If they chose not to take it then remove from dropped list to maintain validity
+		        	   itemManager.itemsDropped.remove(foundItem);
+		           }
+		           
+		           System.out.println("Current dropped list");
+			   		for (String item : itemManager.itemsDropped) {
+			   			System.out.println(item);
+			   		}
 	           }
 	   		}
 
