@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.List;
 import java.util.ArrayList;
 
-public class MainGame {
+public class MainGame{
 
 	public static void main(String[] args) {
 		
@@ -18,7 +18,6 @@ public class MainGame {
 		int loopCounter = 0;
 		Algorithm checker = new Algorithm();
 		
-        
         int portNumber = 50000;
 
         try ( 
@@ -64,6 +63,8 @@ public class MainGame {
 	           
 	           // Receive response
 	           inputLine = in.readLine();
+	           
+	           	//Add in exit statement
 	           
 	           // See if player has moved 5 times. If so then an item drops.
 	           moveCheck = player1.movement(inputLine);
@@ -130,7 +131,7 @@ public class MainGame {
 			   		int[] claimedInventory = new int[3];
 			   		
 			   		for (int i = 0; i < 3; i++) {
-			   		   outputLine = "What item number is in slot :" + i + "?";
+			   		   outputLine = "What item number is in slot :" + (i+1) + "?";
 			           out.println(outputLine);
 			           inputLine = in.readLine();
 			           claimedInventory[i] = Integer.parseInt(inputLine);

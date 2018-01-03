@@ -28,7 +28,7 @@ public class Player {
 //			mInventory[i] = mItemManager.DropItem();
 //		}
 		for(int i = 0; i < 3; i++){
-			mInventory[i] = null;
+			mInventory[i] = "00";
 		}
 		
 	}
