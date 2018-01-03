@@ -66,7 +66,7 @@ public class Algorithm {
 			while(flag) {
 				flag = false;
 				for(int i = 0; i < length; i++) {
-					for(int j = 0; j < (length - i); j++) {
+					for(int j = 0; j < (length - i); j++) { 
 						if(playerList[j].playerScore < playerList[j+1].playerScore) {
 							temp = playerList[j];
 							playerList[j].playerScore = playerList[j+1].playerScore;
