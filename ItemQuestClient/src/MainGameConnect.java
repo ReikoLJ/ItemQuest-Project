@@ -25,16 +25,17 @@ public class MainGameConnect {
 	            String fromServer;
 	            String fromUser;
 	            
-	            //Game setup
+	            //Game setup - receive name request
 	            fromServer = in.readLine();
 	            System.out.println(fromServer);
 	            
+	            //Send response
 	            fromUser = stdIn.readLine();
 	            out.println(fromUser);
 	            
 	            //Getting initial inventory statement and
-	            //First request for movement input
-	            for(int i = 0; i <= 4; i++) {
+	            //First request for movement input (5 lines total)
+	            for(int i = 1; i <= 5; i++) {
 	            	fromServer = in.readLine();
 	            	System.out.println(fromServer);
 	            }
@@ -44,15 +45,32 @@ public class MainGameConnect {
 
                //Main game loop
 	            while ((fromServer = in.readLine()) != null) {
-
+	            	
+	            	// Receive game response (6 lines)
 	            	if (fromServer.equals("ITEM")) {
-	    	            for(int i = 0; i <= 5; i++) {
+	    	            for(int i = 1; i <= 6; i++) {
 	    	            	fromServer = in.readLine();
 	    	            	System.out.println(fromServer);
 	    	            }
 	    	            //Send item replacement response
 	    	            fromUser = stdIn.readLine();
 	    	            out.println(fromUser);
+	            	}
+	            	else if(fromServer.equals("CHECK")) {
+	    	            //Receive item check starter
+	            		for(int i = 1; i <= 4; i++) {
+	    	            	fromServer = in.readLine();
+	    	            	System.out.println(fromServer);
+	    	            }
+	    	            //Loop for responses on each item slot
+				   		for (int i = 0; i < 3; i++) {
+	    	            	fromServer = in.readLine();
+	    	            	System.out.println(fromServer);
+	    	            	
+		    	            //Send item response
+		    	            fromUser = stdIn.readLine();
+		    	            out.println(fromUser);
+				   		}
 	            	}
 	            	else {
 		            	System.out.println(fromServer);

@@ -75,6 +75,9 @@ public class Items {
 	//Get full item description from number
 	public String ItemLookup(int itemNumber) {
 		
+		if(itemNumber == 00) {
+			return "EMPTY";
+		}
 		String fullItem = itemList.get(itemNumber-1);
 		
 		return fullItem;

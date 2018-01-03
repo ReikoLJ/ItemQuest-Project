@@ -6,7 +6,9 @@ public class Algorithm {
 		
 		Items itemManager = Items.GetInstance();
 		
-		
+		public Algorithm () {
+			//Default constructor
+		}
 		//test to see if item is in inventory
 		public void TrustTest(Player player, int[] claimedInventory) {
 			
@@ -23,7 +25,7 @@ public class Algorithm {
 							
 				case (1):	{
 					userReturn1 = itemManager.ItemLookup(claimedInventory[0]);
-					if (userReturn1 == playerInventorySlot1 || userReturn1 == playerInventorySlot2 || userReturn1 == playerInventorySlot3) {
+					if (userReturn1 == playerInventorySlot1 || (userReturn1.equals("EMPTY") && playerInventorySlot1 == null)) {
 						player.playerScore++;
 					}
 					else {
@@ -33,7 +35,7 @@ public class Algorithm {
 				}
 				case (2):	{
 					userReturn2 = itemManager.ItemLookup(claimedInventory[1]);
-					if (userReturn2 == playerInventorySlot1 || userReturn2 == playerInventorySlot2 || userReturn2 == playerInventorySlot3) {
+					if (userReturn2 == playerInventorySlot2 || (userReturn2.equals("EMPTY") && playerInventorySlot2 == null)) {
 						player.playerScore++;
 					}
 					else {
@@ -43,7 +45,7 @@ public class Algorithm {
 				}
 				case (3):	{
 					userReturn3 = itemManager.ItemLookup(claimedInventory[2]);
-					if (userReturn3 == playerInventorySlot1 || userReturn3 == playerInventorySlot2 || userReturn3 == playerInventorySlot3) {
+					if (userReturn3 == playerInventorySlot3 || (userReturn3.equals("EMPTY") && playerInventorySlot3 == null)) {
 						player.playerScore++;
 					}	
 					else {
@@ -86,7 +88,7 @@ public class Algorithm {
 				String itemString = itemManager.ItemLookup(newInventory[i]);
 				
 				if (!itemManager.ItemCheck(itemString)){
-					player.ItemSwap(i, itemString);
+					player.ItemSwap(i, itemString, null);
 				}
 			}
 		}

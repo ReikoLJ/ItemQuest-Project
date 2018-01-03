@@ -4,13 +4,12 @@ public class Player {
 	public String Name;
 	private String mInventory[] = new String[3];
 	private int movementCounter = 0;
-	private int itemCounter = 0;
 	public int currentX = 0;
 	public int currentY = 0;
 	public String moveResponse;
 	public int playerScore = 10;
 	
-	Items mItemManager = Items.GetInstance();
+	Items itemManager = Items.GetInstance();
 	
 	public Player(String name) {
 		
@@ -36,7 +35,9 @@ public class Player {
 	
 	public void ItemSwap(int invIndex, String newItem, String oldItem) {
 		mInventory[invIndex-1] = newItem;
-		mItemManager.itemsDropped.remove(oldItem);
+		if (oldItem != null) {
+			itemManager.itemsDropped.remove(oldItem);
+		}
 	}
 	
 
@@ -70,7 +71,6 @@ public class Player {
 		if(movementCounter == 5) {
 			moveResponse = "ITEM";
 			movementCounter = 0;
-			itemCounter++;
 		}
 //		else if (itemCounter == 5) {
 //			moveResponse = "CHECK";
