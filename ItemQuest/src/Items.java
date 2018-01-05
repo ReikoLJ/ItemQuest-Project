@@ -50,13 +50,15 @@ public class Items {
 		while(!newItem) {
 			
 			randomItem = itemList.get(rand.nextInt(50));
-			//check if generated item is already on the dropped list
+			//check if generated item is already on the dropped list			
 			if(!ItemCheck(randomItem)) {
 				//if not on the list then add to it, otherwise loop again and generate another
 				itemsDropped.add(randomItem);
 				newItem = true;
 			}
 		}
+
+
 		
 		return randomItem;
 	}
