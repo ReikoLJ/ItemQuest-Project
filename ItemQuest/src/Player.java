@@ -1,25 +1,31 @@
 
 public class Player {
 
-	public String Name;
-	private String mInventory[] = new String[3];
-	private int movementCounter = 0;
-	public int currentX = 0;
-	public int currentY = 0;
+	public String _name;
+	private String _inventory[] = new String[3];
+	private int _movementCounter = 0;
+	public int _currentX = 0;
+	public int _currentY = 0;
 	public String moveResponse;
-	public int playerScore = 10;
+	public int _playerScore = 10;
 	
 	Items itemManager = Items.GetInstance();
 	
-	public Player(String name) {
-		
-		Name = name;
+	public Player() {
 		StarterInventory();
 	}
 	
+	public Player(String name) {
+		
+		_name = name;
+		StarterInventory();
+	}
+	
+	
+	
 	public String[] GetInventory() {
 		
-		return mInventory;
+		return _inventory;
 	}
 	
 	private void StarterInventory(){
@@ -28,13 +34,13 @@ public class Player {
 //			mInventory[i] = mItemManager.DropItem();
 //		}
 		for(int i = 0; i < 3; i++){
-			mInventory[i] = "00";
+			_inventory[i] = "00";
 		}
 		
 	}
 	
 	public void ItemSwap(int invIndex, String newItem, String oldItem) {
-		mInventory[invIndex-1] = newItem;
+		_inventory[invIndex-1] = newItem;
 		if (oldItem != null) {
 			itemManager.itemsDropped.remove(oldItem);
 		}
@@ -49,28 +55,28 @@ public class Player {
 			
 		case NORTH:
 		case 	 N:
-			currentY++;
+			_currentY++;
 			break;
 		case  EAST:
 		case     E:
-			currentX++;
+			_currentX++;
 			break;		
 		case SOUTH:
 		case 	 S:
-			currentY--;
+			_currentY--;
 			break;
 		case  WEST:
 		case 	 W:
-			currentX--;
+			_currentX--;
 			break;	
 		}
 		
-		movementCounter++;
+		_movementCounter++;
 		
 		//when player has moved 5 times, an item will drop
-		if(movementCounter == 5) {
+		if(_movementCounter == 5) {
 			moveResponse = "ITEM";
-			movementCounter = 0;
+			_movementCounter = 0;
 		}
 //		else if (itemCounter == 5) {
 //			moveResponse = "CHECK";
@@ -85,7 +91,7 @@ public class Player {
 	}
 	
 	public String playerLocation() {
-		return currentX + ", " + currentY;
+		return _currentX + ", " + _currentY;
 	}
 	
 	public enum Direction {

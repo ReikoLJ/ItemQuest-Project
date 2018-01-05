@@ -26,30 +26,30 @@ public class Algorithm {
 				case (1):	{
 					userReturn1 = itemManager.ItemLookup(claimedInventory[0]);
 					if (userReturn1 == playerInventorySlot1 || (userReturn1.equals("EMPTY") && playerInventorySlot1 == null)) {
-						player.playerScore++;
+						player._playerScore++;
 					}
 					else {
-						player.playerScore--;
+						player._playerScore--;
 					}
 					break;
 				}
 				case (2):	{
 					userReturn2 = itemManager.ItemLookup(claimedInventory[1]);
 					if (userReturn2 == playerInventorySlot2 || (userReturn2.equals("EMPTY") && playerInventorySlot2 == null)) {
-						player.playerScore++;
+						player._playerScore++;
 					}
 					else {
-						player.playerScore--;
+						player._playerScore--;
 					}
 					break;
 				}
 				case (3):	{
 					userReturn3 = itemManager.ItemLookup(claimedInventory[2]);
 					if (userReturn3 == playerInventorySlot3 || (userReturn3.equals("EMPTY") && playerInventorySlot3 == null)) {
-						player.playerScore++;
+						player._playerScore++;
 					}	
 					else {
-						player.playerScore--;
+						player._playerScore--;
 					}
 					break;
 				}
@@ -67,9 +67,9 @@ public class Algorithm {
 				flag = false;
 				for(int i = 0; i < length; i++) {
 					for(int j = 0; j < (length - i); j++) { 
-						if(playerList[j].playerScore < playerList[j+1].playerScore) {
+						if(playerList[j]._playerScore < playerList[j+1]._playerScore) {
 							temp = playerList[j];
-							playerList[j].playerScore = playerList[j+1].playerScore;
+							playerList[j]._playerScore = playerList[j+1]._playerScore;
 							playerList[j+1] = temp;
 							flag = true;
 						}
