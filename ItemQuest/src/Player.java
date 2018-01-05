@@ -7,6 +7,7 @@ public class Player {
 	public int _currentX = 0;
 	public int _currentY = 0;
 	public String moveResponse;
+	int itemDrop = 1;							//change to trigger drops at different rate
 	public int _playerScore = 10;
 	
 	Items itemManager = Items.GetInstance();
@@ -30,11 +31,8 @@ public class Player {
 	
 	private void StarterInventory(){
 		
-//		for(int i = 0; i < 3; i++){
-//			mInventory[i] = mItemManager.DropItem();
-//		}
 		for(int i = 0; i < 3; i++){
-			_inventory[i] = "00";
+			_inventory[i] = "00, EMPTY";
 		}
 		
 	}
@@ -73,15 +71,11 @@ public class Player {
 		
 		_movementCounter++;
 		
-		//when player has moved 5 times, an item will drop
-		if(_movementCounter == 5) {
+		//when player has moved enough times, an item will drop
+		if(_movementCounter == itemDrop) {
 			moveResponse = "ITEM";
 			_movementCounter = 0;
 		}
-//		else if (itemCounter == 5) {
-//			moveResponse = "CHECK";
-//			
-//		}
 		else {
 			moveResponse =  "NOTHING"; 			
 		}
@@ -103,5 +97,17 @@ public class Player {
 		E,
 		S,
 		W
+	}
+
+	public void clearInventory() {
+		
+		for(int i = 0; i < 3; i++){
+			
+			if(!_inventory[i].equals("00, EMPTY")) {
+				itemManager.itemsDropped.remove(_inventory[i]);
+			}
+			
+		}
+		
 	}
 }

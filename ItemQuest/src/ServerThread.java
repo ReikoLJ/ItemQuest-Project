@@ -1,16 +1,18 @@
 import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.*;
 
 public class ServerThread extends Thread {
     
 	Items itemManager = Items.GetInstance();
+	Algorithm checker = Algorithm.GetInstance();
 	String moveCheck;
 	String foundItem;
-	List<Player> playerList = new ArrayList<Player>();
+	int trustTest = 3;				//change to trigger trust test at different rate
+
+	
+	//Used for inventory check trigger
 	int loopCounter = 0;
-	Algorithm checker = new Algorithm();
+
 	boolean gameEnd = false;
 	
 	private Socket clientSocket = null;
@@ -26,10 +28,9 @@ public class ServerThread extends Thread {
         		
         	PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));	
-        		
         ) {
         
-        	////////////////////// Game Setup ///////////////////////////////
+        ////////////////////// Game Setup ///////////////////////////////
  	   
         String inputLine, outputLine;           
         
@@ -42,7 +43,7 @@ public class ServerThread extends Thread {
         
         // Create new player object with given name
         Player currentPlayer = new Player(inputLine);
-        playerList.add(currentPlayer);
+        checker.playerList.add(currentPlayer);
 		
         // Setup initial inventory
 		   String[] playerInventory = currentPlayer.GetInventory();
@@ -110,19 +111,19 @@ public class ServerThread extends Thread {
 			           }
 			           
 			           // Below for testing purposes on server side
-			           System.out.println("Current dropped list");
-				   		for (String item : itemManager.itemsDropped) {
-				   			System.out.println(item);
-				   		}
+//			           System.out.println("Current dropped list");
+//				   		for (String item : itemManager.itemsDropped) {
+//				   			System.out.println(item);
+//				   		}
 		           }
 		           
 		           loopCounter++;
-		           if(loopCounter == 7) {
+		           if(loopCounter == 3) {
 			   		    outputLine = "CHECK";
 			            out.println(outputLine);
 			            
 		        	   // Send check message to client (4 lines)
-			   		    outputLine = "Inventory check. Last record:";
+			   		    outputLine = "----Inventory check---- Last record:";
 			            out.println(outputLine);
 			           
 				   		for (String item : playerInventory) {
@@ -132,7 +133,7 @@ public class ServerThread extends Thread {
 				   		int[] claimedInventory = new int[3];
 				   		
 				   		for (int i = 0; i < 3; i++) {
-				   		   outputLine = "What item number is in slot :" + (i+1) + "?";
+				   		   outputLine = "What item number is in slot : " + (i+1) + "?";
 				           out.println(outputLine);
 				           inputLine = in.readLine();
 				           claimedInventory[i] = Integer.parseInt(inputLine);
@@ -140,10 +141,14 @@ public class ServerThread extends Thread {
 				   		
 				   		checker.TrustTest(currentPlayer, claimedInventory);
 				   		loopCounter = 0;
-				   		System.out.println("Player score:" + currentPlayer._playerScore);
 		           }
 	           }
 	           else {
+	        	   
+	        	   //clean up player records from game
+	        	   currentPlayer.clearInventory();
+	        	   checker.playerList.remove(currentPlayer);
+	        	   
 	        	   //skip game text and exit while loop
 	        	   gameEnd = true;
 	           }

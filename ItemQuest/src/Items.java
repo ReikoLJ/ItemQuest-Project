@@ -78,7 +78,7 @@ public class Items {
 	public String ItemLookup(int itemNumber) {
 		
 		if(itemNumber == 00) {
-			return "EMPTY";
+			return "00";
 		}
 		String fullItem = itemList.get(itemNumber-1);
 		
