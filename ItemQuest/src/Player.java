@@ -3,6 +3,7 @@ public class Player {
 
 	public String _name;
 	private String _inventory[] = new String[3];
+	private String _claimedInventory[] = new String[3];
 	private int _movementCounter = 0;
 	public int _currentX = 0;
 	public int _currentY = 0;
@@ -22,11 +23,14 @@ public class Player {
 		StarterInventory();
 	}
 	
-	
-	
 	public String[] GetInventory() {
 		
 		return _inventory;
+	}
+	
+	public String[] GetClaimedInventory() {
+		
+		return _claimedInventory;
 	}
 	
 	private void StarterInventory(){
@@ -38,13 +42,27 @@ public class Player {
 	}
 	
 	public void ItemSwap(int invIndex, String newItem, String oldItem) {
-		_inventory[invIndex-1] = newItem;
-		if (oldItem != null) {
+		
+		_inventory[invIndex] = newItem;
+		
+		if (!oldItem.equals("00, EMPTY")) {
 			itemManager.itemsDropped.remove(oldItem);
 		}
 	}
 	
+	public void ItemSet(int invIndex, String newItem) {
+		
+		_inventory[invIndex] = newItem;
+	}
+	
+	public void InventoryClaim(int[] inventory) {
+		
+		for (int i = 0; i < 3; i++) {
 
+			_claimedInventory[i] = itemManager.ItemLookup(inventory[i]);
+		}		
+	}
+	
 	public String movement(String direction) {
 		
 		Direction moveDirection = Direction.valueOf(direction.toUpperCase());
@@ -99,6 +117,7 @@ public class Player {
 		W
 	}
 
+	//Used when user leaves game so items are released from dropped list
 	public void clearInventory() {
 		
 		for(int i = 0; i < 3; i++){

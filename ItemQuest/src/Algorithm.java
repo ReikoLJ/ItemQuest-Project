@@ -6,6 +6,8 @@ public class Algorithm {
 		private static Algorithm instance = null;	
 	
 		int heldItems = 3;         																				//total number of held items in the game
+		int triggerCount = 0;
+		public boolean gameHold = false;
 		String userReturn1, userReturn2, userReturn3;															//set up item slots to store user returned values
 		String playerInventorySlot1, playerInventorySlot2, playerInventorySlot3;								//set up item slots to store items in playerInventorySlots
 		volatile List<Player> playerList = new ArrayList<Player>();
@@ -119,17 +121,57 @@ public class Algorithm {
 	   		}
 		}
 		
-		public void playerInventoryAssign(Player player, int[] newInventory) {
-			//TODO: Take all returned answers and assign items.
-			//Once item has been claimed it cannot be claimed again and any subsequent user who attempts to claim it will end up with and empty inventory slot.
-			// Focus on writing about potential improvements - full comparison
+		public void playerInventoryAssign(Player player, String[] newInventory) {
+			//Take all returned answers and assign items.
+			//Once item has been claimed it cannot be claimed again and any subsequent user who attempts to claim it will end up with an empty inventory slot.
+			//Focus on writing about potential improvements - full comparison against what other players have/weight on getting items at all with a low score? Ramifications
 			
 			for(int i = 0; i < 3; i++){
-				String itemString = itemManager.ItemLookup(newInventory[i]);
 				
-				if (!itemManager.ItemCheck(itemString)){
-					player.ItemSwap(i, itemString, "00, EMPTY");
+				//If not already on dropped list, add to inventory and list
+				if (!itemManager.ItemCheck(newInventory[i])){
+					player.ItemSet(i, newInventory[i]);
+					itemManager.itemsDropped.add(newInventory[i]);
 				}
+				else {
+					player.ItemSet(i, "00, EMPTY");
+				}
+			}
+		}
+		
+		public void crashTest() {
+			//Wait for all currently connected players to hit this point then assign inventory
+			//Players with highest trust score get priority picks
+
+			gameHold = true;
+			triggerCount++;
+			
+			//Don't action until all players have checked their inventory in
+			//Will drop through and players will be stuck in while loops until all in
+			if(triggerCount == playerList.size()) {
+				
+				//Clear itemlist (crash simulation)
+				itemManager.ClearItems();
+
+				//playerList is in trust score order with most trusted first
+				//So they are sent to inventory assignment in that order
+				for(Player player : playerList) {
+					
+					String[] claimedInv = player.GetClaimedInventory();
+					
+					for(int i = 0; i < 3; i++) {
+						
+						System.out.println(claimedInv[i]);
+					}
+					
+					
+					playerInventoryAssign(player, claimedInv);
+				}
+				
+				//Reset count now test has been completed
+				triggerCount = 0;
+				gameHold = false;
+				
 			}
 		}
 }

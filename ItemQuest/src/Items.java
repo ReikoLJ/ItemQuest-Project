@@ -57,9 +57,6 @@ public class Items {
 				newItem = true;
 			}
 		}
-
-
-		
 		return randomItem;
 	}
 	
@@ -78,7 +75,7 @@ public class Items {
 	public String ItemLookup(int itemNumber) {
 		
 		if(itemNumber == 00) {
-			return "00";
+			return "00, EMPTY";
 		}
 		String fullItem = itemList.get(itemNumber-1);
 		

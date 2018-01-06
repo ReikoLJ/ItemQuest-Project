@@ -56,6 +56,44 @@ public class MainGameConnect {
 	    	            fromUser = stdIn.readLine();
 	    	            out.println(fromUser);
 	            	}
+	            	else if (fromServer.equals("CRASH")) {
+	            		//Receive crash start message
+	            		fromServer = in.readLine();
+    	            	System.out.println(fromServer);
+    	            	
+	    	            //Loop for responses on each item slot
+				   		for (int i = 0; i < 3; i++) {
+	    	            	fromServer = in.readLine();
+	    	            	System.out.println(fromServer);
+	    	            	
+		    	            //Send item response
+		    	            fromUser = stdIn.readLine();
+		    	            out.println(fromUser);
+				   		}
+				   		
+	            		//Receive wait message
+	            		fromServer = in.readLine();
+    	            	System.out.println(fromServer);
+    	            	
+    	            	while((fromServer = in.readLine()) == null){
+    	            		//Waiting until continue message from server
+    	            		//Aka when all players have claimed inventory
+    	            		try {
+								Thread.sleep(5000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+    	            	}
+    	            	//Show continuance message
+    	            	System.out.println(fromServer);
+    	            	
+    	            	//Receive new inventory list
+	            		for(int i = 1; i <= 3; i++) {
+	    	            	fromServer = in.readLine();
+	    	            	System.out.println(fromServer);
+	    	            }
+	            	}
 	            	else if(fromServer.equals("CHECK")) {
 	    	            //Receive item check starter
 	            		for(int i = 1; i <= 4; i++) {

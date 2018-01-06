@@ -8,12 +8,16 @@ public class ServerThread extends Thread {
 	String moveCheck;
 	String foundItem;
 	int trustTest = 3;				//change to trigger trust test at different rate
-
+	int crashTest = 4;				//change to trigger crash test at different rate
+	int[] claimedInventory = new int[3];
 	
 	//Used for inventory check trigger
 	int loopCounter = 0;
+	int loopCounter2 = 0;
 
 	boolean gameEnd = false;
+	
+
 	
 	private Socket clientSocket = null;
 
@@ -101,7 +105,7 @@ public class ServerThread extends Thread {
 			        	   
 			        	   int swapSlot = Integer.parseInt(inputLine);
 			        	   
-			        	   currentPlayer.ItemSwap(swapSlot, foundItem, playerInventory[swapSlot-1]);
+			        	   currentPlayer.ItemSwap(swapSlot-1, foundItem, playerInventory[swapSlot-1]);
 			        	   playerInventory = currentPlayer.GetInventory();
 
 			           }
@@ -117,8 +121,58 @@ public class ServerThread extends Thread {
 //				   		}
 		           }
 		           
+		           //Increment loop counters 
 		           loopCounter++;
-		           if(loopCounter == 3) {
+		           loopCounter2++;
+		           
+		           if(loopCounter2 == crashTest) {
+			   		    outputLine = "CRASH";
+			            out.println(outputLine);
+		        	   
+		        	   // Send crash message to client (1 line no response)
+			   		    outputLine = "----Server Crash---- Enter Inventory:";
+			            out.println(outputLine);
+			            
+			           //Get inventory from client (send and receive x 3) 
+				   		for (int i = 0; i < 3; i++) {
+					   		   outputLine = "What item number is in slot : " + (i+1) + "?";
+					           out.println(outputLine);
+					           inputLine = in.readLine();
+					           claimedInventory[i] = Integer.parseInt(inputLine);
+					   		}
+				   		currentPlayer.InventoryClaim(claimedInventory);
+ 		
+		        	    checker.crashTest();
+		        	   
+		        	   // Send wait message to client (1 line no response)
+			   		    outputLine = "----Please Wait----";
+			            out.println(outputLine);
+		        	  
+			            
+		        	   while(checker.gameHold) {
+		        		   //Hold until all inventory checks are in and assignment complete
+	   	            		try {
+									Thread.sleep(5000);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+		        	   }
+		        	   
+		        	   // Send post-crash message to client (4 lines no response)
+			   		    outputLine = "----Game resuming---- Current Inventory:";
+			            out.println(outputLine);
+				           
+				   		for (String item : playerInventory) {
+				   			out.println(item);
+				   		}
+			            
+			            
+		        	   //Reset both counters as check not needed after a crash
+		        	   loopCounter = 0;
+		        	   loopCounter2 = 0;
+		           }
+		           else if(loopCounter == trustTest) {
 			   		    outputLine = "CHECK";
 			            out.println(outputLine);
 			            
@@ -130,8 +184,8 @@ public class ServerThread extends Thread {
 				   			out.println(item);
 				   		}
 				   	
-				   		int[] claimedInventory = new int[3];
 				   		
+				   		// Get each slot of inventory from client
 				   		for (int i = 0; i < 3; i++) {
 				   		   outputLine = "What item number is in slot : " + (i+1) + "?";
 				           out.println(outputLine);
@@ -140,16 +194,20 @@ public class ServerThread extends Thread {
 				   		}
 				   		
 				   		checker.TrustTest(currentPlayer, claimedInventory);
+				   		
+				   		//Reset counter 
 				   		loopCounter = 0;
 		           }
 	           }
 	           else {
 	        	   
-	        	   //clean up player records from game
+	        	   //If here then 'exit' has been typed by client
+	        	   
+	        	   //Clean up player records from game
 	        	   currentPlayer.clearInventory();
 	        	   checker.playerList.remove(currentPlayer);
 	        	   
-	        	   //skip game text and exit while loop
+	        	   //Skip game text and exit while loop
 	        	   gameEnd = true;
 	           }
         
