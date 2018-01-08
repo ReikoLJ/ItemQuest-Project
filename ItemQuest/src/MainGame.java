@@ -11,7 +11,6 @@ public class MainGame{
 		
         int portNumber = 50000;
         boolean listening = true;
-        //Global 
         //List<Thread> connectedClients = new ArrayList<Thread>();
         
         try (ServerSocket serverSocket = new ServerSocket(portNumber)) { 
@@ -20,6 +19,7 @@ public class MainGame{
             	
         	   while(init.gameHold) {
         		   //Don't accept new players during crash conditions
+        		   //Connection will be held in this loop
             		try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
@@ -28,10 +28,12 @@ public class MainGame{
 					}
         	   }
         	   
-            	Thread client = new Thread(new ServerThread(serverSocket.accept()));           	
-            	client.start();
+        	   new ServerThread(serverSocket.accept()).start();     
+            	
+        	   //This section is for manipulation of individual threads
+	    	    //Thread client = new Thread(new ServerThread(serverSocket.accept()));           	
+	        	//client.start();
 	            //connectedClients.add(client);
-	            //System.out.println(connectedClients.size());
 
 	        }
 	    

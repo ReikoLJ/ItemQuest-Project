@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Items {
-
-	private static Items instance = null;	
 	
     private List<String> itemList = new ArrayList<String>();
     public List<String> itemsDropped = new ArrayList<String>();
+	
+    private static Items instance = null;	
     
     private Items() {
 			LoadItems();

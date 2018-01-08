@@ -12,7 +12,8 @@ public class MainGameConnect {
 	       	//change to current PC
 	       	String hostName = "192.168.0.10";
 			//String hostName = "10.30.8.162";
-			int portNumber = 50000;
+			
+	       	int portNumber = 50000;
 
 	        try (
 	            Socket kkSocket = new Socket(hostName, portNumber);

@@ -1,15 +1,15 @@
 
 public class Player {
 
-	public String _name;
-	private String _inventory[] = new String[3];
-	private String _claimedInventory[] = new String[3];
+	private int itemDrop = 1;							//change to trigger drops at different rate
 	private int _movementCounter = 0;
 	public int _currentX = 0;
 	public int _currentY = 0;
-	public String moveResponse;
-	int itemDrop = 1;							//change to trigger drops at different rate
 	public int _playerScore = 10;
+	public String _name;
+	private String _inventory[] = new String[3];
+	private String _claimedInventory[] = new String[3];
+	public String moveResponse;
 	
 	Items itemManager = Items.GetInstance();
 	

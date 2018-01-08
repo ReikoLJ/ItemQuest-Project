@@ -7,9 +7,9 @@ public class Algorithm {
 	
 		int heldItems = 3;         																				//total number of held items in the game
 		int triggerCount = 0;
-		public boolean gameHold = false;
 		String userReturn1, userReturn2, userReturn3;															//set up item slots to store user returned values
 		String playerInventorySlot1, playerInventorySlot2, playerInventorySlot3;								//set up item slots to store items in playerInventorySlots
+		public boolean gameHold = false;
 		volatile List<Player> playerList = new ArrayList<Player>();
 		
 		Items itemManager = Items.GetInstance();
@@ -109,6 +109,7 @@ public class Algorithm {
 				}
 			}
 			
+			//clear current list and add players in order of trust score
 			playerList.clear();
 			
 	   		for (Player s_play : sortList) {
@@ -124,7 +125,6 @@ public class Algorithm {
 		public void playerInventoryAssign(Player player, String[] newInventory) {
 			//Take all returned answers and assign items.
 			//Once item has been claimed it cannot be claimed again and any subsequent user who attempts to claim it will end up with an empty inventory slot.
-			//Focus on writing about potential improvements - full comparison against what other players have/weight on getting items at all with a low score? Ramifications
 			
 			for(int i = 0; i < 3; i++){
 				
@@ -147,7 +147,7 @@ public class Algorithm {
 			triggerCount++;
 			
 			//Don't action until all players have checked their inventory in
-			//Will drop through and players will be stuck in while loops until all in
+			//Will drop through and players will be stuck in while loops until all in then final one through will complete this block
 			if(triggerCount == playerList.size()) {
 				
 				//Clear itemlist (crash simulation)
