@@ -25,7 +25,7 @@ Entering Item when promted:
 Only enter the numerical value. Eg.
 
 '03, Large Health Potion'		-	only enter '03'.
-'46, A Life-Sized Waifu Bodypillow'	-	only enter '46'.
+'15, Apple'	-	only enter '15'.
 '50, A First-Class Grade From Chris'	-	only enter '50'.
 
 -------------------------------------
